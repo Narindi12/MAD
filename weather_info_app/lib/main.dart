@@ -1,10 +1,18 @@
-class WeatherHomePage extends StatefulWidget {
-  @override
-  _WeatherHomePageState createState() => _WeatherHomePageState();
-}
+import 'dart:math';  // For generating random data
 
 class _WeatherHomePageState extends State<WeatherHomePage> {
   String cityName = '';
+  String temperature = '--';
+  String condition = '--';
+
+  void fetchWeather() {
+    final random = Random();
+    setState(() {
+      temperature = (15 + random.nextInt(16)).toString(); // 15°C to 30°C
+      List<String> conditions = ['Sunny', 'Cloudy', 'Rainy'];
+      condition = conditions[random.nextInt(conditions.length)];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +34,13 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                // Simulated weather fetch action
-              },
+              onPressed: fetchWeather,
               child: Text('Fetch Weather'),
             ),
             SizedBox(height: 20),
-            // Placeholder for weather information
             Text('City: $cityName'),
-            Text('Temperature: -- °C'),
-            Text('Condition: --'),
+            Text('Temperature: $temperature °C'),
+            Text('Condition: $condition'),
           ],
         ),
       ),
